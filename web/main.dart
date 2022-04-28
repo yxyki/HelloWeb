@@ -1,11 +1,16 @@
-// Dart与HTML集成 （https://dart.dev/tutorials/web/low-level-html/connect-dart-html）
+// https://dart.dev/tutorials/web/low-level-html/add-elements
 
 import 'dart:html';
 
+final InputElement toDoInput = querySelector('#to-do-input') as InputElement;
+final UListElement toDoList = querySelector('#to-do-list') as UListElement;
+
 void main() {
-  int a = 1;
-  int b = 2;
-  int c = a + b;
-  querySelector('#RipVanWinkle')!.innerHtml =
-      '诶，如果看到这句话，说明Dart已经集成到了HTML中了！<br/> $c = $a + $b';
+  toDoInput.onChange.listen(addToDoItem);
+}
+
+void addToDoItem(Event e) {
+  final newToDo = LIElement()..text = toDoInput.value;
+  toDoInput.value = '';
+  toDoList.children.add(newToDo);
 }
